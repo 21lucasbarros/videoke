@@ -42,19 +42,26 @@ body {
     justify-content: center;
 }
 
-.principal h2 {
+.principal__conteudo__titulo {
     color: var(--corTercearia);
     font-family: var(--fontPrincipal);
     font-size: 1.5rem;
     font-weight: 600;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
 }
 
-#pesquisa {
-    width: 100%;
-    padding: 10px 45px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.principal__conteudo__pesquisa {
+    display: block;
+    margin: 10px auto;
+    width: 290px;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
 #lista-musicas {
