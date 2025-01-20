@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:wght@400;600&display=swap');
+
+:root {
+    --corBackground: #f7f7f7;
+    --corSecundaria: #0052cc;
+    --corTercearia: #1A1A19;
+
+    --fontPrincipal: 'Montserrat', sans-serif;
+    --fontSecundaria: 'Krona One', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--corBackground);
+}
+
+.cabecalho {
+    background-color: var(--corSecundaria);
+    padding: 2%;
+}
+
+.cabecalho__conteudo {
+    text-align: center;
+}
+
+.cabecalho__conteudo__titulo {
+    font-size: 1.7rem;
+    font-family: var(--fontPrincipal);
+    color: var(--corBackground);
+    font-weight: 600;
+}
+
+.principal {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.principal h2 {
+    color: var(--corTercearia);
+    font-family: var(--fontPrincipal);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#pesquisa {
+    width: 100%;
+    padding: 10px 45px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#lista-musicas {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+}
+
+#lista-musicas li {
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.paginacao a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: var(--corSecundaria);
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.paginacao a:hover {
+    background-color: var(--corSecundaria);
+    color: white;
+    border-color: var(--corSecundaria);
+}
+
+.paginacao a.active {
+    background-color: var(--corSecundaria);
+    color: white;
+    border-color: var(--corSecundaria);
+}
+
+.rodape {
+    padding: 1% 10%;
+}
+
+.rodape__conteudo {
+    text-align: center;
+}
+
+.rodape__conteudo__paragrafo {
+    font-size: 1.1rem;
+    font-family: var(--fontPrincipal);
+    font-weight: 500;
+    color: var(--corTercearia);
+}
