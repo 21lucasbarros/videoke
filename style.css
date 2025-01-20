@@ -104,7 +104,7 @@ body {
 }
 
 .rodape {
-    padding: 1% 10%;
+    padding: 3% 10%;
 }
 
 .rodape__conteudo {
@@ -116,4 +116,40 @@ body {
     font-family: var(--fontPrincipal);
     font-weight: 500;
     color: var(--corTercearia);
+}
+
+@media (max-width: 768px) {
+    .cabecalho__conteudo__titulo {
+        font-size: 1.2rem;
+    }
+
+    .principal h2 {
+        font-size: 1rem;
+    }
+
+    #pesquisa {
+        padding: 10px 20px;
+    }
+
+    #lista-musicas li {
+        padding: 8px;
+    }
+
+    .paginacao a {
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cabecalho__conteudo__titulo {
+        font-size: 1rem;
+    }
+
+    .principal h2 {
+        font-size: 0.9rem;
+    }
+
+    #pesquisa {
+        padding: 8px 15px;
+    }
 }
