@@ -136,8 +136,8 @@ body {
         font-size: 1.2rem;
     }
 
-    .principal h2 {
-        font-size: 1rem;
+    .principal__conteudo__titulo {
+        font-size: 1.5rem;
     }
 
     #pesquisa {
@@ -158,8 +158,8 @@ body {
         font-size: 1rem;
     }
 
-    .principal h2 {
-        font-size: 0.9rem;
+    .principal__conteudo__titulo {
+        font-size: 1.5rem;
     }
 
     #pesquisa {
