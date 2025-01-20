@@ -9,10 +9,16 @@ async function carregarMusicas() {
     try {
         const resposta = await fetch('./musicas.json'); // Carrega o JSON
         musicas = await resposta.json(); // Converte para objeto JavaScript
+        ordenarMusicas(); // Ordena as músicas alfabeticamente pelo nome do artista
         exibirMusicas(1); // Exibe a primeira página ao carregar
     } catch (erro) {
         console.error('Erro ao carregar as músicas:', erro);
     }
+}
+
+// Função para ordenar músicas
+function ordenarMusicas() {
+    musicas.sort((a, b) => a.artista.localeCompare(b.artista));
 }
 
 // Função para exibir músicas com paginação
@@ -25,7 +31,7 @@ function exibirMusicas(pagina) {
     listaMusicas.innerHTML = '';
     musicasPaginas.forEach(musica => {
         const item = document.createElement('li');
-        item.textContent = `${musica.numero} - ${musica.nome} - ${musica.artista}`;
+        item.textContent = `${musica.artista} - ${musica.nome} - ${musica.numero}`;
         listaMusicas.appendChild(item);
     });
 
@@ -62,7 +68,7 @@ campoPesquisa.addEventListener('input', () => {
     listaMusicas.innerHTML = '';
     musicasFiltradas.slice(0, 25).forEach(musica => {
         const item = document.createElement('li');
-        item.textContent = `${musica.numero} - ${musica.nome} - ${musica.artista}`;
+        item.textContent = `${musica.artista} - ${musica.nome} - ${musica.numero}`;
         listaMusicas.appendChild(item);
     });
 });
