@@ -3,14 +3,16 @@ const campoPesquisa = document.getElementById('pesquisa');
 const listaMusicas = document.getElementById('lista-musicas');
 const paginacao = document.getElementById('paginacao');
 let musicas = [];
+let musicasFiltradas = [];
 
 // Função para carregar músicas do JSON
 async function carregarMusicas() {
     try {
-        const resposta = await fetch('./musicas.json'); // Carrega o JSON
-        musicas = await resposta.json(); // Converte para objeto JavaScript
-        ordenarMusicas(); // Ordena as músicas alfabeticamente pelo nome do artista
-        exibirMusicas(1); // Exibe a primeira página ao carregar
+        const resposta = await fetch('./musicas.json');
+        musicas = await resposta.json();
+        ordenarMusicas();
+        musicasFiltradas = [...musicas];
+        exibirMusicas(1);
     } catch (erro) {
         console.error('Erro ao carregar as músicas:', erro);
     }
@@ -25,7 +27,7 @@ function ordenarMusicas() {
 function exibirMusicas(pagina) {
     const inicio = (pagina - 1) * 25;
     const fim = inicio + 25;
-    const musicasPaginas = musicas.slice(inicio, fim);
+    const musicasPaginas = musicasFiltradas.slice(inicio, fim);
 
     // Limpa a lista atual
     listaMusicas.innerHTML = '';
@@ -36,7 +38,7 @@ function exibirMusicas(pagina) {
     });
 
     // Atualiza os links de paginação
-    gerarPaginacao(musicas.length, pagina);
+    gerarPaginacao(musicasFiltradas.length, pagina);
 }
 
 // Função para gerar links de paginação com no máximo 6 páginas por vez
@@ -58,7 +60,6 @@ function gerarPaginacao(total, paginaAtual) {
         anterior.addEventListener('click', () => {
             const primeiraPaginaAnterior = inicioIntervalo - paginasPorIntervalo;
             exibirMusicas(primeiraPaginaAnterior);
-            gerarPaginacao(total, primeiraPaginaAnterior);
         });
         paginacao.appendChild(anterior);
     }
@@ -78,12 +79,11 @@ function gerarPaginacao(total, paginaAtual) {
     // Botão "Próximo"
     if (fimIntervalo < totalPaginas) {
         const proximo = document.createElement('a');
-        proximo.textContent = 'Próximo';
+        proximo.textContent = '...';
         proximo.href = '#';
         proximo.addEventListener('click', () => {
             const primeiraPaginaProxima = fimIntervalo + 1;
-            exibirMusicas(primeiraPaginaProxima); // Exibe a primeira página do próximo intervalo
-            gerarPaginacao(total, primeiraPaginaProxima); // Atualiza a paginação para o novo intervalo
+            exibirMusicas(primeiraPaginaProxima);
         });
         paginacao.appendChild(proximo);
     }
@@ -91,19 +91,13 @@ function gerarPaginacao(total, paginaAtual) {
 
 // Função para filtrar músicas
 campoPesquisa.addEventListener('input', () => {
-    const termoBusca = campoPesquisa.value.toLowerCase();
-    const musicasFiltradas = musicas.filter(musica =>
-        musica.titulo.toLowerCase().includes(termoBusca) || 
-        musica.interprete.toLowerCase().includes(termoBusca) || 
+    const termoBusca = campoPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    musicasFiltradas = musicas.filter(musica =>
+        musica.titulo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(termoBusca) || 
+        musica.interprete.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(termoBusca) || 
         musica.codigo.toString().includes(termoBusca)
     );
-    gerarPaginacao(musicasFiltradas.length, 1);
-    listaMusicas.innerHTML = '';
-    musicasFiltradas.slice(0, 25).forEach(musica => {
-        const item = document.createElement('li');
-        item.textContent = `${musica.interprete} - ${musica.titulo} - ${musica.codigo}`;
-        listaMusicas.appendChild(item);
-    });
+    exibirMusicas(1); // Reinicia na primeira página do filtro
 });
 
 // Carrega as músicas ao iniciar
