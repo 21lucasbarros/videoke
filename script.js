@@ -1,9 +1,12 @@
 // Elementos
 const campoPesquisa = document.getElementById('pesquisa');
-const listaMusicas = document.getElementById('lista-musicas');
+const tabelaMusicas = document.querySelector('#tabela-musicas tbody');
 const paginacao = document.getElementById('paginacao');
 let musicas = [];
 let musicasFiltradas = [];
+const itensPorPagina = 25;
+const paginasPorIntervalo = 6;
+let paginaAtual = 1;
 
 // Função para carregar músicas do JSON
 async function carregarMusicas() {
@@ -12,92 +15,111 @@ async function carregarMusicas() {
         musicas = await resposta.json();
         ordenarMusicas();
         musicasFiltradas = [...musicas];
-        exibirMusicas(1);
+        exibirMusicas(paginaAtual);
     } catch (erro) {
         console.error('Erro ao carregar as músicas:', erro);
     }
 }
 
-// Função para ordenar músicas
+// Função para ordenar músicas por banda/cantor
 function ordenarMusicas() {
     musicas.sort((a, b) => a.interprete.localeCompare(b.interprete));
 }
 
 // Função para exibir músicas com paginação
 function exibirMusicas(pagina) {
-    const inicio = (pagina - 1) * 25;
-    const fim = inicio + 25;
-    const musicasPaginas = musicasFiltradas.slice(inicio, fim);
+    paginaAtual = pagina;
+    const inicio = (pagina - 1) * itensPorPagina;
+    const fim = inicio + itensPorPagina;
+    const musicasPagina = musicasFiltradas.slice(inicio, fim);
 
-    // Limpa a lista atual
-    listaMusicas.innerHTML = '';
-    musicasPaginas.forEach(musica => {
-        const item = document.createElement('li');
-        item.textContent = `${musica.interprete} - ${musica.titulo} - ${musica.codigo}`;
-        listaMusicas.appendChild(item);
+    // Atualiza a tabela de músicas
+    tabelaMusicas.innerHTML = ''; // Limpa as linhas anteriores
+    musicasPagina.forEach(musica => {
+        const linha = document.createElement('tr');
+
+        // Criar células para cada coluna
+        const colunaArtista = document.createElement('td');
+        colunaArtista.textContent = musica.interprete;
+        const colunaMusica = document.createElement('td');
+        colunaMusica.textContent = musica.titulo;
+        const colunaCodigo = document.createElement('td');
+        colunaCodigo.textContent = musica.codigo;
+
+        // Adicionar células à linha
+        linha.appendChild(colunaArtista);
+        linha.appendChild(colunaMusica);
+        linha.appendChild(colunaCodigo);
+
+        // Adicionar linha à tabela
+        tabelaMusicas.appendChild(linha);
     });
 
-    // Atualiza os links de paginação
-    gerarPaginacao(musicasFiltradas.length, pagina);
+    gerarPaginacao(musicasFiltradas.length, paginaAtual);
 }
 
-// Função para gerar links de paginação com no máximo 6 páginas por vez
-function gerarPaginacao(total, paginaAtual) {
+// Função para gerar links de paginação com intervalo limitado de 6 páginas no máximo
+function gerarPaginacao(totalItens, paginaAtual) {
     paginacao.innerHTML = '';
-    const totalPaginas = Math.ceil(total / 25);
-    const paginasPorIntervalo = 6;
-
-    // Determinar intervalo atual
+    const totalPaginas = Math.ceil(totalItens / itensPorPagina);
     const intervaloAtual = Math.ceil(paginaAtual / paginasPorIntervalo);
     const inicioIntervalo = (intervaloAtual - 1) * paginasPorIntervalo + 1;
     const fimIntervalo = Math.min(inicioIntervalo + paginasPorIntervalo - 1, totalPaginas);
 
-    // Botão "Anterior"
+    // Botão "Anterior" para intervalos
+    if (paginaAtual > 1) {
+        const anteriorPagina = criarBotaoPaginacao('Anterior', paginaAtual - 1);
+        paginacao.appendChild(anteriorPagina);
+    }
+
     if (intervaloAtual > 1) {
-        const anterior = document.createElement('a');
-        anterior.textContent = 'Anterior';
-        anterior.href = '#';
-        anterior.addEventListener('click', () => {
-            const primeiraPaginaAnterior = inicioIntervalo - paginasPorIntervalo;
-            exibirMusicas(primeiraPaginaAnterior);
-        });
-        paginacao.appendChild(anterior);
+        const anteriorIntervalo = criarBotaoPaginacao('<<', inicioIntervalo - paginasPorIntervalo);
+        paginacao.appendChild(anteriorIntervalo);
     }
 
     // Links das páginas no intervalo atual
     for (let i = inicioIntervalo; i <= fimIntervalo; i++) {
-        const link = document.createElement('a');
-        link.textContent = i;
-        link.href = '#';
-        if (i === paginaAtual) {
-            link.classList.add('ativo');
-        }
-        link.addEventListener('click', () => exibirMusicas(i));
-        paginacao.appendChild(link);
+        const linkPagina = criarBotaoPaginacao(i, i, i === paginaAtual);
+        paginacao.appendChild(linkPagina);
     }
 
-    // Botão "Próximo"
+    // Botão "Próximo" para intervalos
     if (fimIntervalo < totalPaginas) {
-        const proximo = document.createElement('a');
-        proximo.textContent = '...';
-        proximo.href = '#';
-        proximo.addEventListener('click', () => {
-            const primeiraPaginaProxima = fimIntervalo + 1;
-            exibirMusicas(primeiraPaginaProxima);
-        });
-        paginacao.appendChild(proximo);
+        const proximoIntervalo = criarBotaoPaginacao('>>', fimIntervalo + 1);
+        paginacao.appendChild(proximoIntervalo);
     }
+
+    if (paginaAtual < totalPaginas) {
+        const proximaPagina = criarBotaoPaginacao('Próximo', paginaAtual + 1);
+        paginacao.appendChild(proximaPagina);
+    }
+}
+
+// Função auxiliar para criar botões de paginação
+function criarBotaoPaginacao(texto, pagina, isAtivo = false) {
+    const link = document.createElement('a');
+    link.textContent = texto;
+    link.href = '#';
+    link.classList.add('paginacao-link');
+    if (isAtivo) {
+        link.classList.add('ativo');
+    }
+    link.addEventListener('click', (evento) => {
+        evento.preventDefault();
+        exibirMusicas(pagina);
+    });
+    return link;
 }
 
 // Função para filtrar músicas
 campoPesquisa.addEventListener('input', () => {
-    const termoBusca = campoPesquisa.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const termoBusca = campoPesquisa.value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
     musicasFiltradas = musicas.filter(musica =>
-        musica.titulo.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(termoBusca) || 
-        musica.interprete.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(termoBusca) || 
+        musica.titulo.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(termoBusca) ||
+        musica.interprete.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').includes(termoBusca) ||
         musica.codigo.toString().includes(termoBusca)
     );
-    exibirMusicas(1); // Reinicia na primeira página do filtro
+    exibirMusicas(1);
 });
 
 // Carrega as músicas ao iniciar
