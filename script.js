@@ -1,6 +1,5 @@
-// Elementos
 const campoPesquisa = document.getElementById('pesquisa');
-const tabelaMusicas = document.querySelector('#tabela-musicas tbody');
+const listaMusicas = document.getElementById('lista-musicas');
 const paginacao = document.getElementById('paginacao');
 let musicas = [];
 let musicasFiltradas = [];
@@ -33,32 +32,18 @@ function exibirMusicas(pagina) {
     const fim = inicio + itensPorPagina;
     const musicasPagina = musicasFiltradas.slice(inicio, fim);
 
-    // Atualiza a tabela de músicas
-    tabelaMusicas.innerHTML = ''; // Limpa as linhas anteriores
+    // Atualiza a lista de músicas
+    listaMusicas.innerHTML = '';
     musicasPagina.forEach(musica => {
-        const linha = document.createElement('tr');
-
-        // Criar células para cada coluna
-        const colunaArtista = document.createElement('td');
-        colunaArtista.textContent = musica.interprete;
-        const colunaMusica = document.createElement('td');
-        colunaMusica.textContent = musica.titulo;
-        const colunaCodigo = document.createElement('td');
-        colunaCodigo.textContent = musica.codigo;
-
-        // Adicionar células à linha
-        linha.appendChild(colunaArtista);
-        linha.appendChild(colunaMusica);
-        linha.appendChild(colunaCodigo);
-
-        // Adicionar linha à tabela
-        tabelaMusicas.appendChild(linha);
+        const item = document.createElement('li');
+        item.textContent = `${musica.interprete} - ${musica.titulo} - ${musica.codigo}`;
+        listaMusicas.appendChild(item);
     });
 
     gerarPaginacao(musicasFiltradas.length, paginaAtual);
 }
 
-// Função para gerar links de paginação com intervalo limitado de 6 páginas no máximo
+// Função para gerar links de paginação com intervalo limitado de 6 paginas no max
 function gerarPaginacao(totalItens, paginaAtual) {
     paginacao.innerHTML = '';
     const totalPaginas = Math.ceil(totalItens / itensPorPagina);

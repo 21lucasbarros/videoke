@@ -119,24 +119,6 @@ body {
     border-color: var(--corSecundaria);
 }
 
-#tabela-musicas {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#tabela-musicas th,
-#tabela-musicas td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    font-family: var(--fontPrincipal);
-}
-
-#tabela-musicas th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
 .paginacao-link.ativo {
     color: var(--corBackground);
     background-color: var(--corSecundaria);
