@@ -4,7 +4,7 @@ const paginacao = document.getElementById('paginacao');
 let musicas = [];
 let musicasFiltradas = [];
 const itensPorPagina = 25;
-const paginasPorIntervalo = 6;
+const paginasPorIntervalo = 4;
 let paginaAtual = 1;
 
 // Função para carregar músicas do JSON
@@ -56,22 +56,11 @@ function gerarPaginacao(totalItens, paginaAtual) {
         const anteriorPagina = criarBotaoPaginacao('Anterior', paginaAtual - 1);
         paginacao.appendChild(anteriorPagina);
     }
-
-    if (intervaloAtual > 1) {
-        const anteriorIntervalo = criarBotaoPaginacao('<<', inicioIntervalo - paginasPorIntervalo);
-        paginacao.appendChild(anteriorIntervalo);
-    }
-
+    
     // Links das páginas no intervalo atual
     for (let i = inicioIntervalo; i <= fimIntervalo; i++) {
         const linkPagina = criarBotaoPaginacao(i, i, i === paginaAtual);
         paginacao.appendChild(linkPagina);
-    }
-
-    // Botão "Próximo" para intervalos
-    if (fimIntervalo < totalPaginas) {
-        const proximoIntervalo = criarBotaoPaginacao('>>', fimIntervalo + 1);
-        paginacao.appendChild(proximoIntervalo);
     }
 
     if (paginaAtual < totalPaginas) {
