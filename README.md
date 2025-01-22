@@ -1,45 +1,76 @@
-# Músicas - Projeto de Lista de Músicas
+# Videoke Luis Pinguim
 
-Este projeto contém uma lista de músicas com informações sobre o artista, nome da música e sua posição no ranking.
+O **Videoke Luis Pinguim** é um projeto que fiz para o meu pai, para que as pessoas possam escolher as músicas para cantar no videokê. A aplicação tem uma lista de músicas com os intérpretes, códigos e letras, além de uma pesquisa que facilita encontrar a canção que a pessoa quer.
 
-## Descrição
+## Estrutura do Projeto
 
-O arquivo `musicas.json` contém uma lista de 100 músicas populares, com os seguintes campos:
+A estrutura do diretório do projeto é a seguinte:
 
-- **artista**: Nome do artista ou banda.
-- **nome**: Nome da música.
-- **numero**: Posição da música no ranking.
-
-## Como usar
-
-1. Clone o repositório:
-
-   ```bash
-   git clone https://github.com/usuario/repositorio.git
-   ```
-
-2. Navegue até o diretório do projeto:
-
-   ```bash
-   cd nome-do-projeto
-   ```
-
-3. O arquivo `musicas.json` está localizado na raiz do projeto. Você pode utilizá-lo em seu aplicativo, script ou qualquer outro sistema que precise de uma lista de músicas.
-
-4. Para manipular o arquivo JSON, você pode usar sua linguagem preferida, como JavaScript, Python, ou qualquer outra que tenha suporte para leitura e manipulação de JSON.
-
-## Exemplo de Estrutura do Arquivo JSON
-
-```json
-[
-    { "artista": "Anitta", "nome": "Envolver", "numero": 1 },
-    { "artista": "BaianaSystem", "nome": "Avisa Lá", "numero": 2 },
-    { "artista": "Bebe Rexha", "nome": "I'm Good (Blue)", "numero": 3 },
-    { "artista": "Bruno Mars", "nome": "Leave The Door Open", "numero": 4 },
-    ...
-]
+```
+lucasweacked-videoke/
+├── README.md
+├── index.html
+├── musicas.json
+├── script.js
+└── style.css
 ```
 
-## Contribuições
+- `index.html`: Arquivo principal do projeto, onde a estrutura HTML é definida.
+- `musicas.json`: Arquivo JSON contendo a lista de músicas, incluindo informações como intérprete, código, título e letra.
+- `script.js`: Arquivo JavaScript que carrega as músicas, aplica a lógica de pesquisa e paginação.
+- `style.css`: Arquivo de estilos CSS que define a aparência da aplicação.
 
-Se você deseja contribuir para o projeto, fique à vontade para fazer um fork e enviar um pull request com suas melhorias!
+## Como Usar
+
+1. **Clonando o Repositório**  
+   Para começar, clone o repositório para a sua máquina local:
+
+   ```bash
+   git clone https://github.com/lucasweacked/videoke.git
+   ```
+
+2. **Abrindo o Projeto**  
+   Após clonar o repositório, abra o arquivo `index.html` no seu navegador.
+
+3. **Buscando Músicas**  
+   Utilize o campo de pesquisa para buscar músicas pelo nome do artista, título ou código. A lista de músicas será filtrada automaticamente conforme a pesquisa.
+
+4. **Paginação**  
+   O projeto inclui um sistema de paginação que exibe até 25 músicas por página. Navegue entre as páginas usando os botões de navegação.
+
+## Funcionalidades
+
+- **Pesquisa**: Permite buscar músicas por título, intérprete ou código.
+- **Paginações**: Exibe até 25 músicas por página e permite navegar entre elas.
+- **Interface Responsiva**: A interface se ajusta a diferentes tamanhos de tela para uma boa experiência de usuário em dispositivos móveis e desktop.
+
+## Tecnologias Usadas
+
+- **HTML**: Estrutura básica da aplicação.
+- **CSS**: Estilização da página e layout responsivo.
+- **JavaScript**: Lógica para carregar, filtrar e paginar as músicas.
+- **JSON**: Armazenamento dos dados das músicas (interprete, título, código, etc.).
+
+## Exemplo de Música no JSON
+
+```json
+{
+  "interprete": "Red Hot Chili Peppers",
+  "codigo": "4816",
+  "titulo": "CALIFORNICATION",
+  "letra": "Psychic spies from Chi...",
+  "idioma": "EUA"
+}
+```
+
+## Contribuindo
+
+Sinta-se à vontade para contribuir com melhorias ou correções. Para isso, basta seguir os seguintes passos:
+
+1. Faça um fork deste repositório.
+2. Crie uma branch para a sua modificação (`git checkout -b minha-modificacao`).
+3. Faça o commit das suas alterações (`git commit -am 'Adicionando minha modificação'`).
+4. Envie a branch para o repositório remoto (`git push origin minha-modificacao`).
+5. Abra um pull request.
+
+---
