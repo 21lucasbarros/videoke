@@ -74,25 +74,28 @@ body {
 }
 
 #lista-musicas {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    margin: auto;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
-#lista-musicas li {
-    background-color: white;
+#lista-musicas thead {
+    background-color: var(--corSecundaria);
+    color: white;
     font-family: var(--fontPrincipal);
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 10px;
-    width: auto;
-    padding: 10px;
+}
+
+#lista-musicas th,
+#lista-musicas td {
+    padding: 12px 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+}
+
+#lista-musicas tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 .paginacao {
@@ -153,10 +156,6 @@ body {
 
     #pesquisa {
         padding: 10px 20px;
-    }
-
-    #lista-musicas li {
-        padding: 8px;
     }
 
     .paginacao a {

@@ -1,5 +1,5 @@
 const campoPesquisa = document.getElementById('pesquisa');
-const listaMusicas = document.getElementById('lista-musicas');
+const listaMusicas = document.getElementById('lista-musicas'); // Referência para a tabela
 const paginacao = document.getElementById('paginacao');
 let musicas = [];
 let musicasFiltradas = [];
@@ -32,18 +32,23 @@ function exibirMusicas(pagina) {
     const fim = inicio + itensPorPagina;
     const musicasPagina = musicasFiltradas.slice(inicio, fim);
 
-    // Atualiza a lista de músicas
-    listaMusicas.innerHTML = '';
+    // Atualiza a tabela de músicas
+    const corpoTabela = listaMusicas.querySelector('tbody');
+    corpoTabela.innerHTML = ''; // Limpa a tabela
     musicasPagina.forEach(musica => {
-        const item = document.createElement('li');
-        item.textContent = `${musica.interprete} - ${musica.titulo} - ${musica.codigo}`;
-        listaMusicas.appendChild(item);
+        const linha = document.createElement('tr');
+        linha.innerHTML = `
+            <td>${musica.interprete}</td>
+            <td>${musica.titulo}</td>
+            <td>${musica.codigo}</td>
+        `;
+        corpoTabela.appendChild(linha);
     });
 
     gerarPaginacao(musicasFiltradas.length, paginaAtual);
 }
 
-// Função para gerar links de paginação com intervalo limitado de 6 paginas no max
+// Função para gerar links de paginação com intervalo limitado de páginas
 function gerarPaginacao(totalItens, paginaAtual) {
     paginacao.innerHTML = '';
     const totalPaginas = Math.ceil(totalItens / itensPorPagina);
@@ -51,7 +56,7 @@ function gerarPaginacao(totalItens, paginaAtual) {
     const inicioIntervalo = (intervaloAtual - 1) * paginasPorIntervalo + 1;
     const fimIntervalo = Math.min(inicioIntervalo + paginasPorIntervalo - 1, totalPaginas);
 
-    // Botão "Anterior" para intervalos
+    // Botão "Anterior"
     if (paginaAtual > 1) {
         const anteriorPagina = criarBotaoPaginacao('Anterior', paginaAtual - 1);
         paginacao.appendChild(anteriorPagina);
@@ -63,6 +68,7 @@ function gerarPaginacao(totalItens, paginaAtual) {
         paginacao.appendChild(linkPagina);
     }
 
+    // Botão "Próximo"
     if (paginaAtual < totalPaginas) {
         const proximaPagina = criarBotaoPaginacao('Próximo', paginaAtual + 1);
         paginacao.appendChild(proximaPagina);
