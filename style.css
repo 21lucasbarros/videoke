@@ -159,6 +159,10 @@ body {
         padding: 10px 20px;
     }
 
+    #pesquisa::placeholder {
+        font-size: 0.9rem;
+    }
+
     .paginacao a {
         padding: 5px 3px;
     }
@@ -176,5 +180,9 @@ body {
 
     #pesquisa {
         padding: 8px 15px;
+    }
+
+    #pesquisa::placeholder {
+        font-size: 0.9rem;
     }
 }
