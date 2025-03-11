@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Luis Pinguim | Videoke</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css">
-</head>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <header class="cabecalho">
-        <section class="cabecalho__conteudo">
-            <h1 class="cabecalho__conteudo__titulo">Videoke Luis Pinguim</h1>
-        </section>
+      <section class="cabecalho__conteudo">
+        <h1 class="cabecalho__conteudo__titulo">Videoke Luis Pinguim</h1>
+      </section>
     </header>
 
     <main class="principal">
-        <section class="principal__conteudo">
-            <label for="pesquisa" class="principal__conteudo__titulo">
-                <i class="ri-search-line"></i> Busque sua música
-            </label>
-            <input class="principal__conteudo__pesquisa" type="text" name="pesquisa" id="pesquisa" placeholder="Digite o nome do artista ou da música">
-        </section>
+      <section class="principal__conteudo">
+        <label for="pesquisa" class="principal__conteudo__titulo">
+          <i class="ri-search-line"></i> Busque sua música
+        </label>
+        <input
+          class="principal__conteudo__pesquisa"
+          type="text"
+          name="pesquisa"
+          id="pesquisa"
+          placeholder="Digite o nome do artista ou da música"
+        />
+      </section>
 
-        <section class="principal__conteudo">
-            <h2 class="lista__titulo">
-                <i class="ri-music-line"></i> Lista de músicas
-            </h2>
-            <table id="lista-musicas">
-                <thead>
-                    <tr>
-                        <th>Intérprete</th>
-                        <th>Título</th>
-                        <th>Código</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- As músicas serão preenchidas dinamicamente aqui -->
-                </tbody>
-            </table>
+      <section class="principal__conteudo">
+        <h2 class="lista__titulo">
+          <i class="ri-music-line"></i> Lista de músicas
+        </h2>
+        <table id="lista-musicas">
+          <thead>
+            <tr>
+              <th>Intérprete</th>
+              <th>Título</th>
+              <th>Código</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- As músicas serão preenchidas dinamicamente aqui -->
+          </tbody>
+        </table>
 
-            <nav class="paginacao" id="paginacao">
-                <!-- Links de paginação serão gerados dinamicamente -->
-            </nav>
-        </section>
+        <nav class="paginacao" id="paginacao">
+          <!-- Links de paginação serão gerados dinamicamente -->
+        </nav>
+      </section>
     </main>
 
     <footer class="rodape">
-        <section class="rodape__conteudo">
-            <p class="rodape__conteudo__paragrafo">&copy; 2025 Luis Pinguim | Todos os direitos reservados.</p>
-        </section>
+      <section class="rodape__conteudo">
+        <p class="rodape__conteudo__paragrafo">
+          &copy; 2025 Luis Pinguim | Todos os direitos reservados.
+        </p>
+      </section>
     </footer>
 
     <script src="./script.js"></script>
-</body>
-
+  </body>
 </html>
